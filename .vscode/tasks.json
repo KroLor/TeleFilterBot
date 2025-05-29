@@ -1,0 +1,35 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Nuitka Compile",
+            "type": "shell",
+            "command": "python",
+            "args": [
+                "-m",
+                "nuitka",
+                "--standalone",
+                "--onefile",
+                "--output-dir=build",
+                "--output-filename=${config:telefilterbot.exeName}",
+                "src/main.py",
+                "--msvc=latest"
+            ],
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "Run Executable",
+            "type": "shell",
+            "command": "build/${config:telefilterbot.exeName} tests/${config:blacklist.logName}",
+            "problemMatcher": [],
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            }
+        }
+    ]
+}

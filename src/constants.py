@@ -1,0 +1,3 @@
+FILE_NAME = "BlackList.txt"
+LOG_FILE_NAME = "Bot.log"
+API_TOKEN = "7993599985:AAGWQ-LkvFG7ORfhNdtVOxsKcAVcnppJQNg"
