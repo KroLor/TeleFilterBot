@@ -48,7 +48,7 @@ def startBot(API_TOKEN):
     #     paused()
     #     status = checkStatusBot()
     
-    @bot.message_handler(func=lambda message: True)
+    @bot.message_handler(func=lambda message: message.chat.type in ["group", "supergroup"])
     def handler_message(message):
         if message.content_type == "text":
             message_text = message.text
@@ -59,8 +59,10 @@ def startBot(API_TOKEN):
                     bot.delete_message(chat_id=message.chat.id, message_id=message.message_id)
                     log_and_print("info", f"Сообщение @{message.from_user.username} удалено.")
                 except Exception as e:
-                    log_and_print("error", f"Не удалось удалить сообщение @{message.from_user.username} в чате {message.chat.title}: {e}.")
-                    log_and_print("debug", f"Не удалось удалить сообщение @{message.from_user.username} из чата {message.chat.title} ({message.chat}):\n{message_text}")
+                    log_and_print("error", f"Не удалось удалить сообщение @{message.from_user.username} в чате {message.chat.title}: {e}. " + 
+                                  f"Сообщение будет пропущено.")
+                    log_and_print("debug", f"Не удалось удалить сообщение @{message.from_user.username} из чата {message.chat.title} " + 
+                                  f"({message.chat.id}), сообщение:\n{message_text}")
 
     log_and_print("info", "Бот запущен.")
     bot.polling(none_stop=True, interval=0, timeout=20)

@@ -1,4 +1,7 @@
 import logging
+from colorama import init, Fore
+
+init(autoreset=True)
 
 def creatLoggingFile(LOG_FILE_NAME, log_path):
     global logger
@@ -23,7 +26,7 @@ def log_and_print(level, message):
         print(message)
     elif level == "warning":
         logger.warning(message)
-        print("WARNING: " + message)
+        print(Fore.YELLOW + "WARNING: " + message)
     elif level == "error":
         logger.error(message)
-        print("ERROR: " + message)
+        print(Fore.RED + "ERROR: " + message)
