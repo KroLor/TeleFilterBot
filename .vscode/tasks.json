@@ -27,6 +27,18 @@
             "command": "build/${config:telefilterbot.exeName} tests/${config:blacklist.logName}",
             "problemMatcher": [],
             "group": {
+                "kind": "test"
+            }
+        },
+        {
+            "label": "Run Executable",
+            "type": "shell",
+            "command": "python",
+            "args": [
+                "tests/full_test.py"
+            ],
+            "problemMatcher": [],
+            "group": {
                 "kind": "test",
                 "isDefault": true
             }
