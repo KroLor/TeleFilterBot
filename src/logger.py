@@ -17,7 +17,7 @@ def creatLoggingFile(LOG_FILE_NAME, log_path):
 
     logger.addHandler(file_handler)
 
-def log_and_print(level, message):
+def log_print(level, message):
     if level == "debug":
         logger.debug(message)
         return

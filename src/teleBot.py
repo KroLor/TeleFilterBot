@@ -2,8 +2,8 @@ from logger import *
 from filter import searching
 import telebot
 
-def paused():
-    input("Запуск приостановлен. Нажмите Enter, если исправили это.")
+# def paused():
+#     input("Запуск приостановлен. Нажмите Enter, если исправили это.")
 
 # def checkStatusBot():
 #     log_and_print("info", "Инициализация...")
@@ -41,8 +41,10 @@ def startBot(API_TOKEN):
     global bot
 
     bot = telebot.TeleBot(API_TOKEN)
-    bot.delete_webhook()
 
+    log_print("debug", f"Текущий вебхук: {bot.get_webhook_info().ip_address}. Удаление.")
+    bot.delete_webhook()
+    
     # status = checkStatusBot()
     # while (status != 0):
     #     paused()
@@ -54,15 +56,15 @@ def startBot(API_TOKEN):
             message_text = message.text
             prohibited = searching(message_text)
             if prohibited == True:
-                log_and_print("info", f"Обнаружен запрещенный контент в чате {message.chat.title} от @{message.from_user.username}.")
+                log_print("info", f"Обнаружен запрещенный контент в чате {message.chat.title} от @{message.from_user.username}.")
                 try:
                     bot.delete_message(chat_id=message.chat.id, message_id=message.message_id)
-                    log_and_print("info", f"Сообщение @{message.from_user.username} удалено.")
+                    log_print("info", f"Сообщение @{message.from_user.username} удалено.")
                 except Exception as e:
-                    log_and_print("error", f"Не удалось удалить сообщение @{message.from_user.username} в чате {message.chat.title}: {e}. " + 
+                    log_print("error", f"Не удалось удалить сообщение @{message.from_user.username} в чате {message.chat.title}: {e}. " + 
                                   f"Сообщение будет пропущено.")
-                    log_and_print("debug", f"Не удалось удалить сообщение @{message.from_user.username} из чата {message.chat.title} " + 
-                                  f"({message.chat.id}), сообщение:\n{message_text}")
+                    log_print("debug", f"Сообщение @{message.from_user.username} из чата {message.chat.title} " + 
+                              f"({message.chat.id}):\n{message_text}")
 
-    log_and_print("info", "Бот запущен.")
+    log_print("info", "Запуск.")
     bot.polling(none_stop=True, interval=0, timeout=20)

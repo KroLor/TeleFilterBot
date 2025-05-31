@@ -4,18 +4,19 @@ from logger import *
 from filter import getWords
 from teleBot import startBot
 
-from constants import *
+from constants import FILE_NAME, LOG_FILE_NAME, API_TOKEN
 
 def parsingFile(file_path):
     try:
-        log_and_print("info", f"Считывание {FILE_NAME}")
-        with open(os.path.abspath(file_path), 'r') as file:
-            words = [line.strip() for line in file]
-            log_and_print("info", f"{FILE_NAME} успешно прочитан.")
+        log_print("info", f"Чтение {FILE_NAME}")
+        with open(os.path.abspath(file_path), 'r', encoding="utf-8") as file:
+            words = [line.strip().lower() for line in file]
+            log_print("info", f"{FILE_NAME} успешно прочитан.")
+            log_print("debug", f"{FILE_NAME}: {words}")
             getWords(words)
 
     except FileNotFoundError:
-        log_and_print("error", f"Файл {FILE_NAME} не найден.")
+        log_print("error", f"Файл {FILE_NAME} не найден.")
         sys.exit(0)
 
 def main():
@@ -27,13 +28,13 @@ def main():
     elif len_arg == 2:
         parsingFile(sys.argv[1])
     else:
-        log_and_print("error", "Слишком много аргументов.")
-        log_and_print("debug", f"Аргументов {len_arg}: {sys.argv}")
+        log_print("error", "Слишком много аргументов.")
+        log_print("debug", f"Аргументов {len_arg}: {sys.argv}")
         sys.exit(0)
 
     startBot(API_TOKEN)
 
-    log_and_print("info", f"Программа [{os.getpid()}] завершилась с кодом 0.")
+    log_print("info", f"Программа [{os.getpid()}] завершилась с кодом 0.")
 
     sys.exit(0)
 
