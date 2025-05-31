@@ -31,7 +31,7 @@
             }
         },
         {
-            "label": "Run Executable",
+            "label": "Run Full Test",
             "type": "shell",
             "command": "python",
             "args": [
