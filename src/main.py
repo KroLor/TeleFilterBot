@@ -8,12 +8,14 @@ from constants import FILE_NAME, LOG_FILE_NAME, API_TOKEN
 
 def parsingFile(file_path):
     try:
-        log_print("info", f"Чтение {FILE_NAME}")
         with open(os.path.abspath(file_path), 'r', encoding="utf-8") as file:
+            log_print("info", f"Чтение {FILE_NAME}")
+
             words = [line.strip().lower() for line in file]
+            getWords(words)
+            
             log_print("info", f"{FILE_NAME} успешно прочитан.")
             log_print("debug", f"{FILE_NAME}: {words}")
-            getWords(words)
 
     except FileNotFoundError:
         log_print("error", f"Файл {FILE_NAME} не найден.")
